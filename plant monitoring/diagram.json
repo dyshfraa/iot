@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "author": "Smart Plant Monitoring System - ESP32",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 40,
+      "left": 20,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "soil_pot",
+      "top": -100,
+      "left": -220,
+      "attrs": { "travelLength": "30", "value": "50" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -120,
+      "left": 20,
+      "attrs": { "temperature": "28.0", "humidity": "65.0" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -110,
+      "left": 140,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -80,
+      "left": 330,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": 60,
+      "left": 330,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_pump",
+      "top": 60,
+      "left": 500,
+      "attrs": { "color": "blue", "label": "WATER PUMP" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_pump",
+      "top": 95,
+      "left": 450,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 180,
+      "left": 340,
+      "attrs": { "volume": "0.1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": 60,
+      "left": -160,
+      "attrs": { "color": "green", "label": "NORMAL (>=60%)" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_yellow",
+      "top": 130,
+      "left": -160,
+      "attrs": { "color": "yellow", "label": "DRYING (30-59%)" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": 200,
+      "left": -160,
+      "attrs": { "color": "red", "label": "VERY DRY (<30%)" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 85,
+      "left": -100,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 155,
+      "left": -100,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 225,
+      "left": -100,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "soil_pot:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "soil_pot:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "soil_pot:SIG", "esp:D34", "blue", [ "v0" ] ],
+    [ "dht1:VCC", "esp:VIN", "red", [ "v0" ] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "dht1:SDA", "esp:D15", "green", [ "v0" ] ],
+    [ "ldr1:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "ldr1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "ldr1:AO", "esp:D35", "cyan", [ "v0" ] ],
+    [ "lcd1:VCC", "esp:VIN", "red", [ "h-30", "v170" ] ],
+    [ "lcd1:GND", "esp:GND.1", "black", [ "h-40", "v160" ] ],
+    [ "lcd1:SDA", "esp:D21", "purple", [ "h-50", "v150" ] ],
+    [ "lcd1:SCL", "esp:D22", "orange", [ "h-60", "v120" ] ],
+    [ "relay1:VCC", "esp:VIN", "red", [ "h-30", "v90" ] ],
+    [ "relay1:GND", "esp:GND.1", "black", [ "h-40", "v80" ] ],
+    [ "relay1:IN", "esp:D26", "magenta", [ "h-50", "v60" ] ],
+    [ "relay1:COM", "esp:3V3", "red", [ "h20", "v-30" ] ],
+    [ "relay1:NO", "r_pump:1", "blue", [ "h0" ] ],
+    [ "r_pump:2", "led_pump:A", "blue", [ "h0" ] ],
+    [ "led_pump:C", "esp:GND.2", "black", [ "v90", "h-380" ] ],
+    [ "bz1:1", "esp:GND.2", "black", [ "v0" ] ],
+    [ "bz1:2", "esp:D25", "yellow", [ "v0" ] ],
+    [ "esp:D14", "r1:2", "green", [ "h0" ] ],
+    [ "r1:1", "led_green:A", "green", [ "h0" ] ],
+    [ "led_green:C", "esp:GND.2", "black", [ "v0" ] ],
+    [ "esp:D27", "r2:2", "gold", [ "h0" ] ],
+    [ "r2:1", "led_yellow:A", "gold", [ "h0" ] ],
+    [ "led_yellow:C", "esp:GND.2", "black", [ "v0" ] ],
+    [ "esp:D13", "r3:2", "red", [ "h0" ] ],
+    [ "r3:1", "led_red:A", "red", [ "h0" ] ],
+    [ "led_red:C", "esp:GND.2", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
